@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Nunito+Sans:wght@300&family=Poppins:wght@700&family=Quicksand:wght@400;500&display=swap')
+
+
+$pink : #D05270
+$background : #f7f7f7
+:root
+  --grey : #424242
+  --notification-background : #f7f7f7
+  --ease-in-quad: cubic-bezier(0.55,0.085,0.68,0.53)
+  --ease-in-quart: cubic-bezier(0.895,0.03,0.685,0.22)
+  --ease-out-quad: cubic-bezier(0.25,0.46,0.45,0.94)
+  --ease-out-quart: cubic-bezier(0.165,0.84,0.44,1)
+  --ease-in-out-quad: cubic-bezier(0.455,0.03,0.515,0.955)
+  --ease-in-out-quart: cubic-bezier(0.77,0,0.175,1)
+  -webkit-font-smoothing: antialiased
+  text-rendering: optimizelegibility
+  cursor: default
+  font-size: 1.1rem
+  line-height: 1.4
+
+
+@mixin custom-scroll-bar()
+  &::-webkit-scrollbar
+    border-radius: 10px
+    height: 5px
+    width: 5px
+  &::-webkit-scrollbar-thumb
+    background: #999
+    border-radius: 2px
+  &::-webkit-scrollbar-track
+    border-radius: 2px
+
+*
+  margin: 0
+  padding: 0
+  box-sizing: border-box
+  font-family: Quicksand
+  font-size: 21px
+  text-decoration: none
+  color: var(--grey)
+  scroll-behavior: smooth
+  // @include custom-scroll-bar()
+
+*, *::before, *::after 
+  border-width: 0
+  border-style: solid
+  box-sizing: border-box
+
+html
+  background-color:  white
+
+// .light-body
+//   background: $background
+//   color: var(--grey)
+//   transition: background 0.25s var(--ease-in-out-quad),color 0.25s var(--ease-in-out-quad)
+// .dark-body
+//   color: #fff
+//   background: rgb(17, 18, 22)
+//   transition: background 0.25s var(--ease-in-out-quad),color 0.25s var(--ease-in-out-quad)
+
+// body
+//   .App
+//     width: 80vw
+//     margin: auto
+//     @media (max-width: 1250px)
+//       width: 90vw
+//     @media (max-width: 750px)
+//       width: 95vw
+
+// .mantine-Notification-root
+//   background: var(--notification-background)
+//   box-shadow : 0 30px 60px -10px var(--shadow-img), 0 18px 36px -18px var(--shadow-img)
+
+//   .mantine-Text-root
+//     color: var(--grey)
+//   .mantine-Notification-icon
+//     background-color: transparent !important
