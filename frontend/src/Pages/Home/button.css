@@ -1,0 +1,117 @@
+/* thanks to cssbuttons.io at universe.io  */
+
+.last-manga__button {
+  background-color: transparent;
+  border: 2px solid #000;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  float: right;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 1.25em 2em;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  transition: all 0.3s ease-in-out;
+  user-select: none;
+  font-size: 13px;
+  width: fit-content;
+}
+
+
+.last-manga__button .text {
+  font-size: 1.125em;
+  line-height: 1.33333em;
+  /* padding-left: 1.5em; */
+  display: block;
+  text-align: left;
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: black;
+}
+
+.last-manga__button .top-key {
+  height: 2px;
+  width: 1.5625rem;
+  top: -2px;
+  left: 0.625rem;
+  position: absolute;
+  background: #e8e8e8;
+  transition: width 0.5s ease-out, left 0.3s ease-out;
+}
+
+.last-manga__button .bottom-key-1 {
+  height: 2px;
+  width: 1.5625rem;
+  right: 1.875rem;
+  bottom: -2px;
+  position: absolute;
+  background: #e8e8e8;
+  transition: width 0.5s ease-out, right 0.3s ease-out;
+}
+
+.last-manga__button .bottom-key-2 {
+  height: 2px;
+  width: 0.625rem;
+  right: 0.625rem;
+  bottom: -2px;
+  background: #e8e8e8;
+  position: absolute;
+  transition: width 0.5s ease-out, right 0.3s ease-out;
+}
+
+.last-manga__button:hover {
+  background: black;
+}
+
+.last-manga__button:hover::before {
+  width: 0.9375rem;
+  background: white;
+}
+
+.last-manga__button:hover .text {
+  padding-left: 1.5em;
+}
+
+.last-manga__button:hover .top-key {
+  left: -2px;
+  width: 0px;
+}
+
+.last-manga__button:hover .bottom-key-1,
+.last-manga__button:hover .bottom-key-2 {
+  right: 0;
+  width: 0;
+}
+
+.text {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.text h3 {
+  padding-top: 5px;
+  font-size: 1.125em;
+  color : black;
+}
+.last-manga__button:hover h3 {
+  padding-top: 5px;
+  font-size: 1.125em;
+  color : #fff;
+}
+.last-manga__button:hover svg {
+  fill : #fff;
+}
+.last-manga__button svg {
+  fill : #000;
+}
