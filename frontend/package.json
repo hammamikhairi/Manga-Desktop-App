@@ -13,11 +13,13 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.4",
+    "framer-motion": "^8.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-router-dom": "^6.6.2",
-    "sass": "^1.57.1"
+    "sass": "^1.57.1",
+    "svg-loaders-react": "^2.2.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
