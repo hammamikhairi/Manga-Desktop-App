@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoNotificationsOutline, IoNotificationsSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import './navbar.sass';
@@ -11,8 +11,11 @@ const Navbar = () => {
 
   // TODO : notifications system
   const [notif, setNotif] = useState(true)
-
   const [location, setLocation] = useState("/")
+
+  useEffect(() => {
+    document.getElementById("navbar").classList.remove("blurr")
+  }, [])
 
   return (
     <div id="navbar" className="navbar-container"  >
@@ -28,7 +31,6 @@ const Navbar = () => {
           <Link to="/list" ><li className={ location == "/list" ? 'highlighted' : '' }> List</li></Link>
         </ul>
         <div className="notification-container">
-          {/* <AiOutlineSearch /> */}
           { notif ? <IoNotificationsSharp /> : <IoNotificationsOutline /> }
         </div>
       </div>

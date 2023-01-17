@@ -1,4 +1,5 @@
 .navbar-container
+  -webkit-backdrop-filter: blur(10px)
   backdrop-filter: blur(10px)
   position: fixed
   z-index: 9
@@ -61,5 +62,16 @@
       padding-bottom: 0
       gap: 2rem
       display: flex
-      & > * 
+      & > *
         cursor: pointer
+
+.blurr
+  animation-name: blurry
+  animation-duration: 2s
+  // opacity: 0
+
+@keyframes blurry
+  0%
+    opacity: 1
+  100%
+    opacity: 0

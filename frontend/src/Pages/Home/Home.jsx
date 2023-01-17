@@ -1,80 +1,141 @@
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-import { styled } from '@mui/material/styles';
+import { motion } from "framer-motion";
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import BorderLinearProgress from '../../Components/BorderLinearProgress/BorderLinearProgress';
+import TypeWriter from '../../Components/TypeWriter/TypeWriter';
 import './button.css';
 import './home.sass';
+
+const LOADS_OF_ANIMATIONS = 1;
+const TempData = {
+  title: "Chainsaw Man ",
+  japaneseTitle: "チェンソーマン",
+  cover: 'file:///home/khairi/smbg.jpg',
+  id: "csm",
+  chapters: {
+    all: 111,
+    read: 80,
+  },
+}
+
+
 const Home = () => {
 
+  const nav = useNavigate()
+  document.addEventListener("reading", (event) => {
+    const type = setInterval(() => {
+      if (event.detail)
+        nav("/read/" + event.detail)
+      clearInterval(type)
+    }, 2000);
+  })
+
   const [lastManga, setLastManga] = useState({})
+  const [counter, setCounter] = useState(LOADS_OF_ANIMATIONS)
+  const [progress, setProgress] = useState(0)
+  const [animationEnded, setAnimationEnded] = useState(false)
 
   useEffect(() => {
-
     // TODO : get last manga from backend
-    setLastManga({
-      title: "Chainsaw Man ",
-      japaneseTitle: "チェンソーマン",
-      cover: "",
-      id: "csm",
-      chapters: {
-        all: 111,
-        read: 57,
-      },
-    })
-
-    if (lastManga.cover)
-      document.getElementById("home").style.backgroundImage = `url(${lastManga.cover})`
+    setLastManga(TempData)
   }, [])
+
+  document.addEventListener('animationEnd', () => {
+    setCounter(counter - 1);
+    if (counter === 0) {
+      setAnimationEnded(true)
+      let i = 0;
+      const progressInterval = setInterval(() => {
+        setProgress((i/lastManga.chapters.all)*100);
+        i++;
+        if (i >  lastManga.chapters.read) {
+          clearInterval(progressInterval);
+        }
+      }, 10);
+    }
+  });
 
   return (
     <div id="home">
       <div id="bg" />
+      {/* {
+        temp &&
+        <img src="tempManga/fa.png" />
+      } */}
+      <div className="last-manga__container">
       {
         (!lastManga || !lastManga.chapters) ?
-          <h1>hello</h1>
+          undefined
         :
-        <div className="last-manga__container">
           <div className="last-manga">
-            <h1 className="last-manga__japanese-title">{lastManga.japaneseTitle}</h1>
-            <h1 className="last-manga__title">{lastManga.title}</h1>
-            <div className='last-manga__progressbar-container'>
-              <BorderLinearProgress className="last-manga__progressbar" variant="determinate" value={(lastManga.chapters.read/lastManga.chapters.all)*100} />
-            </div>
-            {/* <h1 className="last-manga__progress" >{lastManga.chapters.read}/{lastManga.chapters.all}</h1> */}
-            <Link className='last-manga__button' to={`/read/${lastManga.id}`}>
-              {/* <button className='last-manga__continue-button'>Continue Reading...</button> */}
-              {/* <a class="fancy" href="#"> */}
-                <span className="top-key"></span>
-                <div className="text">
-                  <AutoStoriesIcon />
-                  <h3>
-                    Continue Reading...
-                  </h3>
-                </div>
-                <span className="bottom-key-1"></span>
-                <span className="bottom-key-2"></span>
-              {/* </a> */}
-            </Link>
+            <TypeWriter
+              onAnimationEnd={() => { document.dispatchEvent(new CustomEvent("animationEnd", null));}}
+              type="h1"
+              className="last-manga__japanese-title"
+              content={lastManga.japaneseTitle}
+            />
+            <TypeWriter
+              onAnimationEnd={() => { document.dispatchEvent(new CustomEvent("animationEnd", null));}}
+              type="h1"
+              className="last-manga__title"
+              content={lastManga.title}
+            />
+
+            {
+              animationEnded &&
+              <motion.div
+                initial={{
+                  height: 0.1,
+                  opacity: 0
+                }}
+                animate={{
+                  opacity: 1
+                }}
+                transition={{type:'spring', duration:1}}
+                className='last-manga__progressbar-container'
+              >
+                <BorderLinearProgress className="last-manga__progressbar" variant="determinate" value={progress} />
+              </motion.div>
+            }
+
+            {
+              animationEnded &&
+              <motion.div
+                initial={{
+                  height: 0,
+                  opacity: 0
+                }}
+                animate={{
+                  opacity: 1
+                }}
+                transition={{type:'spring', duration:2, delay:0.5}}
+                className="last-manga__button-container"
+              >
+                <Link
+                  className='last-manga__button'
+                  onClick={() => {document.dispatchEvent(new CustomEvent("reading", {detail : lastManga.id}))}}
+                  // to={`/read/${lastManga.id}`}
+                >
+                    <span className="top-key"></span>
+                    <div className="text">
+                      <AutoStoriesIcon />
+                      <h3>
+                        Continue Reading...
+                      </h3>
+                    </div>
+                    <span className="bottom-key-1"></span>
+                    <span className="bottom-key-2"></span>
+                </Link>
+              </motion.div>
+            }
           </div>
-        </div>
       }
+      </div>
     </div>
   )
 }
 
-
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 3,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor: "#424242",
-  },
-}));
 
 
 export default Home;

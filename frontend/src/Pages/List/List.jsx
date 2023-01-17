@@ -1,11 +1,7 @@
-import './list.sass';
 
 const List = () => {
   return (
-    <div id="list">
-
-    </div>
-  )
-}
-
-export default List;
+    <h1>hello world</h1>
+    );
+  }
+  export default List;

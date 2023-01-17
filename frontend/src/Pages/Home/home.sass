@@ -1,9 +1,12 @@
 
+:root
+  --bg-path: url('../../assets/images/bg5.jpg')
+
 #bg
   position: fixed
   height: 100vh
   width: 100vw
-  background : url('../../assets/images/bg7.jpg')
+  background : var(--bg-path)
   background-size: cover
   background-position: center
   background-repeat: no-repeat
@@ -29,15 +32,13 @@
       // background: rgba(0,0,0,0.5)
       width: fit-content
       padding-right: 5rem
-      & > *
-        color: #000 !important
       .last-manga__japanese-title
-        color: white
+        color: #000
         font-size: 1.5rem
         font-weight: 700
         // margin-bottom: 1rem
       .last-manga__title
-        color: white
+        color: #000
         font-size: 3rem
         font-weight: 700
       // .last-manga__progress
@@ -49,18 +50,8 @@
         width: 90%
         margin: auto
 
-      .last-manga__button
-        margin-top : 2rem
-
-
-      // content: ''
-      // position: absolute
-      // top: 0
-      // left: 0
-      // right: 0
-      // bottom: 0
-      // opacity: 0
-      // backdrop-filter: blur(2px)
-      // mask: linear-gradient(transparent, black 60%)
-
-
+      .last-manga__button-container
+        width: fit-content
+        .last-manga__button
+          margin-top : 2rem
+          margin-left: 0
