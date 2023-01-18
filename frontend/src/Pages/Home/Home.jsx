@@ -25,6 +25,7 @@ const Home = () => {
   const nav = useNavigate()
   document.addEventListener("reading", (event) => {
     const type = setInterval(() => {
+      //! fucking manga + chapter
       if (event.detail)
         nav("/read/" + event.detail)
       clearInterval(type)
@@ -114,8 +115,7 @@ const Home = () => {
               >
                 <Link
                   className='last-manga__button'
-                  onClick={() => {document.dispatchEvent(new CustomEvent("reading", {detail : lastManga.id}))}}
-                  // to={`/read/${lastManga.id}`}
+                  onClick={() => {document.dispatchEvent(new CustomEvent("reading", {detail : `${lastManga.id}/chidk`}))}}
                 >
                     <span className="top-key"></span>
                     <div className="text">

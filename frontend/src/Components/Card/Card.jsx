@@ -28,7 +28,7 @@ const  Card = ({props}) => {
       transition={{type:'spring', duration:1}}
     >
       <ButtonBase
-        onClick={() => { console.log(id); document.dispatchEvent(new CustomEvent("reading", {detail : id}))}}
+        onClick={() => { console.log(id); document.dispatchEvent(new CustomEvent("reading", {detail : `${id}/ch1`}))}}
       >
         <Paper
           sx={{
