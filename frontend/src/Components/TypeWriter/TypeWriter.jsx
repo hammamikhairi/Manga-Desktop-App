@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function TypeWriter({type, className, content, delay = 100, onAnimationEnd}) {
+function TypeWriter({type, className, content = "EMPTY", delay = 100, onAnimationEnd = () => {}}) {
   const [text, setText] = useState('');
   const message = content;
 
