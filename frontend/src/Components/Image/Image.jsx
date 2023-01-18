@@ -15,7 +15,7 @@ const Image = ({url, alt}) => {
   return (
       <div
         className={`${pulsing ? "pulse" : ""} loadable Image`}
-        style={{ width: "100%", background: "#ccc" }}
+        style={{ width: "100%", borderRadius: "3px" }}
       >
         <motion.img
           initial={{ opacity: 0 }}
