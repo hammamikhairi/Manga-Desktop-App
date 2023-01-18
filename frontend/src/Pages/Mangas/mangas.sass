@@ -1,0 +1,48 @@
+
+:root
+  --bg-path: url('../../assets/images/bg5.jpg')
+
+#bgMangas
+  position: fixed
+  height: 100vh
+  width: 100vw
+  background : var(--bg-path)
+  background-size: cover
+  background-position: center
+  background-repeat: no-repeat
+  -webkit-mask-image: linear-gradient(to left,black 60%,transparent 100%)
+  mask-image: linear-gradient(to left,black 60%,transparent 100%)
+  filter : blur(50px)
+
+#mangas
+  height: 100vh
+  // width: 100vw
+  position: relative
+  .mangas__cards-container
+    padding-top: 15vh
+    width: 80%
+
+    @media (max-width: 1300px)
+      width: 90vw
+    @media (max-width: 1150px)
+      width: 95vw
+
+    margin: 0 auto
+    .card__text
+      display: block
+      text-align: left
+      font-size: 1rem
+    .card__japanese-title
+        color: #000
+        font-size: 0.8rem
+        font-weight: 300
+        // margin-bottom: 1rem
+    .card__title
+        color: #000
+        font-size: 1.3rem
+        font-weight: 800
+        padding-bottom: 0.5rem
+  .flexed
+    display: flex
+    justify-content: center
+    align-items: center
