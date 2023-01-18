@@ -16,11 +16,16 @@ function App() {
     const [visibleNav, setVisibleNav] = useState(true)
 
     document.addEventListener("reading", (event) => {
-      console.log(event.detail)
-
       if (event.detail) {
-          document.getElementById("home").classList.toggle("blurr")
-          document.getElementById("navbar").classList.toggle("blurr")
+        try {
+            document.getElementById("home").classList.toggle("blurr")
+        }catch{}
+        try {
+            document.getElementById("navbar").classList.toggle("blurr")
+        }catch{}
+        try {
+            document.getElementById("mangas").classList.toggle("blurr")
+        }catch{}
       } else {
         setVisibleNav(!visibleNav)
       }
