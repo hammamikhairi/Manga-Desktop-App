@@ -23,7 +23,7 @@ $background : #f7f7f7
   &::-webkit-scrollbar
     border-radius: 10px
     height: 5px
-    width: 5px
+    width: 0px
   &::-webkit-scrollbar-thumb
     background: #999
     border-radius: 2px
@@ -39,7 +39,7 @@ $background : #f7f7f7
   text-decoration: none
   color: var(--grey)
   scroll-behavior: smooth
-  // @include custom-scroll-bar()
+  @include custom-scroll-bar()
 
 *, *::before, *::after 
   border-width: 0
