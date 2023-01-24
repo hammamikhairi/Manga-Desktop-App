@@ -1,19 +1,11 @@
 import ButtonBase from '@mui/material/ButtonBase';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { styled } from '@mui/material/styles';
 import { motion } from 'framer-motion';
 import Image from '../Image/Image';
 import TypeWriter from '../TypeWriter/TypeWriter';
-const Img = styled('img')({
-  // margin: 'auto',
-  display: 'block',
-  maxWidth: '100%',
-  maxHeight: '100%',
-});
 
 const  Card = ({props}) => {
-
 
   const {cover, japaneseTitle, title, description, id} = props
 
@@ -42,7 +34,7 @@ const  Card = ({props}) => {
           }}
         >
           <Grid container spacing={2}>
-            <Grid item sx={{height : 250}}>
+            <Grid item sx={{height : 250, width : 200}}>
               <Image
                 url={cover}
                 alt={title + " cover"}
