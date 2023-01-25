@@ -15,7 +15,7 @@ const TempData = {
   id: "csm",
   chapters: {
     all: 111,
-    read: 80,
+    read: 50,
   },
 }
 
@@ -34,7 +34,6 @@ const Home = () => {
 
   const [lastManga, setLastManga] = useState({})
   const [counter, setCounter] = useState(LOADS_OF_ANIMATIONS)
-  const [progress, setProgress] = useState(0)
   const [animationEnded, setAnimationEnded] = useState(false)
 
   useEffect(() => {
@@ -44,17 +43,8 @@ const Home = () => {
 
   document.addEventListener('animationEnd', () => {
     setCounter(counter - 1);
-    if (counter === 0) {
+    if (counter === 0)
       setAnimationEnded(true)
-      let i = 0;
-      const progressInterval = setInterval(() => {
-        setProgress((i/lastManga.chapters.all)*100);
-        i++;
-        if (i >  lastManga.chapters.read) {
-          clearInterval(progressInterval);
-        }
-      }, 10);
-    }
   });
 
   return (
@@ -96,7 +86,11 @@ const Home = () => {
                 transition={{type:'spring', duration:1}}
                 className='last-manga__progressbar-container'
               >
-                <BorderLinearProgress className="last-manga__progressbar" variant="determinate" value={progress} />
+                <BorderLinearProgress
+                  className="last-manga__progressbar"
+                  max={TempData.chapters.all}
+                  level={TempData.chapters.read}
+                /> 
               </motion.div>
             }
 
