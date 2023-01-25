@@ -21,6 +21,8 @@ And I'm sure that no one will be able to figure out how to add their own manga t
 - Automatic updates to never miss an update of your favorite manga. Which you definitely haven't illegally obtained.
 - Customizable reading settings. So you can make the reading experience as comfortable as possible.
 
+Stay tuned for more updates on our development progress! 
+
 ## Development
 
 Manelo is built using [Wails](https://wails.app/) and uses [React](https://reactjs.org/) on the frontend and [Go](https://go.dev/) on the backend.
