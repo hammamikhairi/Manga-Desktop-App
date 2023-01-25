@@ -1,19 +1,30 @@
-# README
+# Manelo (Manga Desktop App)
 
-## About
+![Home Image](./Pictures/Home_ss.png)
 
-This is the official Wails React template.
+### 🚨 The app is still in Development !!
+<br>
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
+## Overview
 
-## Live Development
+Manelo offers an amazing experience of reading manga on your desktop.
 
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
+Of course, I would never dream of offering any illegal content. So, you won't find any copyrighted manga on this app. Only free, legal manga.
 
-## Building
+And I'm sure that no one will be able to figure out how to add their own manga to the app themselves.
 
-To build a redistributable, production mode package, use `wails build`.
+### Anticipated features
+
+- A clean and user-friendly interface that makes it easy to search, browse, and read your favorite manga.
+- Offline reading mode to read your manga without an internet connection. Which you definitely haven't illegally obtained.
+- Bookmarking and note-taking to keep track of your progress.
+- Automatic updates to never miss an update of your favorite manga. Which you definitely haven't illegally obtained.
+- Customizable reading settings. So you can make the reading experience as comfortable as possible.
+
+## Development
+
+Manelo is built using [Wails](https://wails.app/) and uses [React](https://reactjs.org/) on the frontend and [Go](https://go.dev/) on the backend.
+
+## License
+
+This package is licensed under MIT license. See LICENSE for details.
