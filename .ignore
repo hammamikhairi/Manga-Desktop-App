@@ -1,0 +1,5 @@
+build
+frontend/dist
+frontend/src/assets
+LICENSE
+go.sum
