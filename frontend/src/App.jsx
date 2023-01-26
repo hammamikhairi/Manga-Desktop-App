@@ -1,6 +1,6 @@
-import './app.sass';
-// import {Greet, Prompt} from "../wailsjs/go/main/App";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
+// import { Dl } from "../wailsjs/go/main/App";
+import './app.sass';
 import Navbar from './Components/Navbar/Navbar';
 import Home from './Pages/Home/Home';
 import List from './Pages/List/List';
@@ -37,6 +37,7 @@ function App() {
                     <Route exact path="/read/:mngId/:chapId" element={<Read />}/>
                 </Routes>
             </Router>
+            {/* <button onClick={() => {Dl().then(res => console.log(res))}}>Die MF</button> */}
         </div>
     )
 }
