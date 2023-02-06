@@ -2,18 +2,21 @@ package servermanager
 
 import (
 	"fmt"
+	types "mngapp/backend/Types"
 	"net/http"
 	"strconv"
 )
 
+// DONE
+
 type ServerManager struct {
-	EndPoints []string
+	EndPoints types.Endpoints
 	EPN       int
 }
 
 func ServerInit() *ServerManager {
 	return &ServerManager{
-		EndPoints: []string{},
+		EndPoints: types.Endpoints{},
 		EPN:       0,
 	}
 }
@@ -21,14 +24,15 @@ func ServerInit() *ServerManager {
 func (sm *ServerManager) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	index, _ := strconv.Atoi(r.URL.Path[1:])
 	if index < 0 || index >= sm.EPN {
+		// TODO : ERROR
 		fmt.Fprint(w, "You fucked up")
 	} else {
-		http.ServeFile(w, r, sm.EndPoints[index])
+		http.ServeFile(w, r, string(sm.EndPoints[index]))
 	}
 }
 
 // URLS SHOULD BE FULL PATHS
-func (sm *ServerManager) SetData(newEndpoints []string) {
+func (sm *ServerManager) SetData(newEndpoints types.Endpoints) {
 	sm.EndPoints = newEndpoints
 	sm.EPN = len(newEndpoints)
 }
