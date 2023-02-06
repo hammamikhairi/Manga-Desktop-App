@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"io"
 	"log"
-	mng "mngapp/backend/DataManager"
+	types "mngapp/backend/Types"
 	utils "mngapp/backend/utils"
 	"net/http"
 	"os"
 	"sync"
-	"time"
 )
+
+// DONE
 
 // TODO : Handle Errors
 
@@ -29,6 +30,8 @@ type DownloadManager struct {
 	wg        sync.WaitGroup
 }
 
+// dataDir : Metadata and shit
+// outDir  : download directory
 func DLMInit(dataDir, outDir string) *DownloadManager {
 	return &DownloadManager{
 		Folders: Folders{
@@ -43,7 +46,7 @@ func (dl *DownloadManager) getPathToChapOut(mangaId string) string {
 	return dl.Folders.OutDir + "/" + mangaId
 }
 
-func (dl *DownloadManager) DownloadChapter(c mng.Chapter) {
+func (dl *DownloadManager) DownloadChapter(c types.Chapter) {
 	dl.wg.Add(c.PagesLength)
 
 	// check manga dir
@@ -59,14 +62,7 @@ func (dl *DownloadManager) DownloadChapter(c mng.Chapter) {
 	dl.wg.Wait()
 }
 
-func (dl *DownloadManager) DownloadImg(url mng.Page) {
-	// fmt.Println("downloading : ", url)
-	time.Sleep(time.Second * 1)
-	<-dl.Downloads
-	dl.wg.Done()
-}
-
-func (dl *DownloadManager) Download(url mng.Page, pageN int, dlPath string) {
+func (dl *DownloadManager) Download(url types.Page, pageN int, dlPath string) {
 
 	fname := utils.GetPageName(pageN, string(url))
 	fmt.Println(dlPath + "/" + fname)
@@ -95,19 +91,4 @@ func (dl *DownloadManager) Download(url mng.Page, pageN int, dlPath string) {
 
 	<-dl.Downloads
 	dl.wg.Done()
-}
-
-func Test() {
-	// create manager
-	home, _ := os.UserHomeDir()
-	dlm := DLMInit(home+"/mngApp/Data", home+"/mngApp")
-
-	dlm.DownloadChapter(mng.Chapter{
-		Pages:       []mng.Page{"hello", "world", "there", "5", " zeze "},
-		PagesLength: 5,
-		Ids: mng.Ids{
-			MngId:  "idk",
-			ChapId: "no no",
-		},
-	}) // MUST KEEP ON RUNNING
 }
