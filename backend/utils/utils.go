@@ -13,14 +13,29 @@ func Check(e error) {
 }
 
 func CheckDirectory(dirPath string) {
-	fmt.Println(dirPath)
+	// fmt.Println(dirPath)
 	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
 		MakeDir(dirPath)
 	}
 }
 
+func DirExists(dirPath string) bool {
+	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
+		return false
+	}
+	return true
+}
+
+func FileExists(path string) bool {
+	return DirExists(path)
+}
+
 func MakeDir(path string) {
-	fmt.Println("making : ", path)
+
+	if DirExists(path) {
+		return
+	}
+	// fmt.Println("making : ", path)
 	err := os.Mkdir(path, os.ModePerm)
 	Check(err)
 }
