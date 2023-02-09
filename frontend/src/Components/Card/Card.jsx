@@ -7,7 +7,13 @@ import TypeWriter from '../TypeWriter/TypeWriter';
 
 const  Card = ({props}) => {
 
-  const {cover, japaneseTitle, title, description, id} = props
+  const {
+    cover,
+    japaneseTitle,
+    title,
+    description,
+    id
+  } = props
 
   return (
     <motion.div
@@ -20,7 +26,7 @@ const  Card = ({props}) => {
       transition={{type:'spring', duration:1}}
     >
       <ButtonBase
-        onClick={() => { console.log(id); document.dispatchEvent(new CustomEvent("reading", {detail : `${id}/ch1`}))}}
+        onClick={() => { document.dispatchEvent(new CustomEvent("reading", {detail : `${id}/ch1`}))}}
       >
         <Paper
           sx={{
