@@ -46,7 +46,8 @@ const tempData = [
 const  Mangas = () => {
   return (
     <div id="mangas">
-      <motion.div
+      <motion.img
+        src={`http://localhost:8080/999?nocache=${Math.random()}`}
         id="bgMangas"
         initial={{
           filter: "blur(0px)"
