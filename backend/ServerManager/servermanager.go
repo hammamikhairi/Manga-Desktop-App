@@ -11,6 +11,7 @@ import (
 
 type ServerManager struct {
 	EndPoints types.Endpoints
+	Bg        string
 	EPN       int
 }
 
@@ -23,6 +24,10 @@ func ServerInit() *ServerManager {
 
 func (sm *ServerManager) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	index, _ := strconv.Atoi(r.URL.Path[1:])
+	if index == 999 {
+		http.ServeFile(w, r, sm.Bg)
+		return
+	}
 	if index < 0 || index >= sm.EPN {
 		// TODO : ERROR
 		fmt.Fprint(w, "You fucked up")
@@ -35,4 +40,8 @@ func (sm *ServerManager) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (sm *ServerManager) SetData(newEndpoints types.Endpoints) {
 	sm.EndPoints = newEndpoints
 	sm.EPN = len(newEndpoints)
+}
+
+func (sm *ServerManager) SetBg(path string) {
+	sm.Bg = path
 }
