@@ -49,6 +49,26 @@ $background : #f7f7f7
 html
   background-color:  white
 
+
+#bg
+  position: fixed
+  height: 100vh
+  object-fit: cover
+  width: 100vw
+  -webkit-mask-image: linear-gradient(to left,black 60%,transparent 100%)
+  mask-image: linear-gradient(to left,black 60%,transparent 100%)
+
+.blurr
+  animation-name: blurry
+  animation-duration: 2s
+
+@keyframes blurry
+  0%
+    opacity: 1
+  100%
+    opacity: 0
+
+
 // .light-body
 //   background: $background
 //   color: var(--grey)

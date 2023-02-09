@@ -1,6 +1,6 @@
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import { motion } from "framer-motion";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import BorderLinearProgress from '../../Components/BorderLinearProgress/BorderLinearProgress';
 import TypeWriter from '../../Components/TypeWriter/TypeWriter';
@@ -8,19 +8,11 @@ import './button.css';
 import './home.sass';
 
 const LOADS_OF_ANIMATIONS = 1;
-const TempData = {
-  title: "Chainsaw Man ",
-  japaneseTitle: "チェンソーマン",
-  cover: 'file:///home/khairi/smbg.jpg',
-  id: "csm",
-  chapters: {
-    all: 111,
-    read: 50,
-  },
-}
 
+const Home = ({lastManga}) => {
 
-const Home = () => {
+  const [animationEnded, setAnimationEnded] = useState(false)
+  const [counter, setCounter] = useState(LOADS_OF_ANIMATIONS)
 
   const nav = useNavigate()
   document.addEventListener("reading", (event) => {
@@ -31,48 +23,33 @@ const Home = () => {
       clearInterval(type)
     }, 2000);
   })
-
-  const [lastManga, setLastManga] = useState({})
-  const [counter, setCounter] = useState(LOADS_OF_ANIMATIONS)
-  const [animationEnded, setAnimationEnded] = useState(false)
-
-  useEffect(() => {
-    // TODO : get last manga from backend
-    setLastManga(TempData)
-  }, [])
-
-  document.addEventListener('animationEnd', () => {
+  
+ document.addEventListener('animationEnd', () => {
     setCounter(counter - 1);
     if (counter === 0)
       setAnimationEnded(true)
   });
 
+  if (lastManga.Title === undefined) {
+    return
+  }
+
   return (
     <div id="home">
-      <div id="bg" />
-      {/* {
-        temp &&
-        <img src="tempManga/fa.png" />
-      } */}
       <div className="last-manga__container">
-      {
-        (!lastManga || !lastManga.chapters) ?
-          undefined
-        :
           <div className="last-manga">
             <TypeWriter
               onAnimationEnd={() => { document.dispatchEvent(new CustomEvent("animationEnd", null));}}
               type="h1"
               className="last-manga__japanese-title"
-              content={lastManga.japaneseTitle}
+              content={lastManga.Japanesetitle} 
             />
             <TypeWriter
               onAnimationEnd={() => { document.dispatchEvent(new CustomEvent("animationEnd", null));}}
               type="h1"
               className="last-manga__title"
-              content={lastManga.title}
+              content={lastManga.Title}
             />
-
             {
               animationEnded &&
               <motion.div
@@ -88,8 +65,10 @@ const Home = () => {
               >
                 <BorderLinearProgress
                   className="last-manga__progressbar"
-                  max={TempData.chapters.all}
-                  level={TempData.chapters.read}
+                  max={lastManga.Totalchapters}
+                  level={lastManga.Progress}
+                  // max={20}
+                  // level={10}
                 /> 
               </motion.div>
             }
@@ -102,14 +81,14 @@ const Home = () => {
                   opacity: 0
                 }}
                 animate={{
-                  opacity: 1
+                 opacity: 1
                 }}
                 transition={{type:'spring', duration:2, delay:0.5}}
                 className="last-manga__button-container"
               >
                 <Link
                   className='last-manga__button'
-                  onClick={() => {document.dispatchEvent(new CustomEvent("reading", {detail : `${lastManga.id}/chidk`}))}}
+                  onClick={() => {document.dispatchEvent(new CustomEvent("reading", {detail : `${lastManga.Id}/chidk`}))}}
                 >
                     <span className="top-key"></span>
                     <div className="text">
@@ -124,7 +103,6 @@ const Home = () => {
               </motion.div>
             }
           </div>
-      }
       </div>
     </div>
   )
