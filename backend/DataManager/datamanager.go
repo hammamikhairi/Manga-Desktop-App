@@ -8,6 +8,11 @@ import (
 	"os"
 )
 
+// FIXME : Change `GetData()` to an attribute
+// and initialize it on app start
+// why ? : many fucking requests
+// why not from beginning : This is better for dev
+
 type DataManager struct {
 	DataDir string
 	OutDir  string
@@ -37,10 +42,8 @@ func (dt *DataManager) GetPathToMangaDownloadsData() string {
 
 func (dt *DataManager) getData() *MangasData {
 	data, _ := os.ReadFile(dt.GetPathToMangasMetaData())
-
 	var mng *MangasData
 	json.Unmarshal(data, &mng)
-
 	return mng
 }
 
@@ -62,13 +65,14 @@ func (dt *DataManager) GetMyManga() []string {
 	return dt.getData().MyManga
 }
 
-func (dt *DataManager) GetLastManga() string {
-	return dt.getData().LastManga
+func (dt *DataManager) GetLastManga() MangaMetaData {
+	lastId := dt.getData().LastManga
+	return dt.GetMangaData(lastId)
 }
 
-func (dt *DataManager) SetLastManga(lastManga string) {
+func (dt *DataManager) SetLastManga(lastMangaId string) {
 	temp := dt.getData()
-	temp.LastManga = lastManga
+	temp.LastManga = lastMangaId
 	dt.saveData(temp)
 }
 
