@@ -15,6 +15,7 @@ const Navbar = () => {
 
   useEffect(() => {
     document.getElementById("navbar").classList.remove("blurr")
+    document.getElementById("bg")?.classList.remove("blurr")
   }, [])
 
   return (
