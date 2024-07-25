@@ -2,61 +2,72 @@ package main
 
 import (
 	"embed"
-	"fmt"
-	"net/http"
-	"os"
-	"strings"
+	"log"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
-	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/options/linux"
+	"github.com/wailsapp/wails/v2/pkg/options/mac"
+	"github.com/wailsapp/wails/v2/pkg/options/windows"
 )
 
-//go:embed all:frontend/dist
+//go:embed all:frontend/out frontend/out/_next/static/*/* frontend/out/_next/static/*/*/*
 var assets embed.FS
 
-type FileLoader struct {
-	http.Handler
-}
-
-func NewFileLoader() *FileLoader {
-	return &FileLoader{}
-}
-
-func (h *FileLoader) ServeHTTP(res http.ResponseWriter, req *http.Request) {
-	var err error
-	requestedFilename := strings.TrimPrefix(req.URL.Path, "/")
-	println("Requesting file:", requestedFilename)
-	fileData, err := os.ReadFile(requestedFilename)
-	if err != nil {
-		res.WriteHeader(http.StatusBadRequest)
-		res.Write([]byte(fmt.Sprintf("Could not load file %s", requestedFilename)))
-	}
-
-	res.Write(fileData)
-}
+//go:embed build/appicon.png
+var icon []byte
 
 func main() {
 	// Create an instance of the app structure
 	app := NewApp()
 
-	// Create application with options
 	err := wails.Run(&options.App{
-		Title:  "MangaApp",
-		Width:  1024,
-		Height: 768,
-		AssetServer: &assetserver.Options{
-			Assets:  assets,
-			Handler: NewFileLoader(),
-		},
+		Title:     "Manelo",
+		Width:     1024,
+		Height:    768,
+		MinWidth:  500,
+		MinHeight: 500,
+		// Frameless: true,
+		Assets:           assets,
 		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
 		OnStartup:        app.startup,
 		Bind: []interface{}{
 			app,
 		},
+		Windows: &windows.Options{
+			WebviewIsTransparent: false,
+			WindowIsTranslucent:  false,
+			DisableWindowIcon:    false,
+			// DisableFramelessWindowDecorations: false,
+			WebviewUserDataPath: "",
+		},
+		Mac: &mac.Options{
+			TitleBar: &mac.TitleBar{
+				TitlebarAppearsTransparent: true,
+				HideTitle:                  false,
+				HideTitleBar:               false,
+				FullSizeContent:            false,
+				UseToolbar:                 false,
+				HideToolbarSeparator:       true,
+			},
+			Appearance:           mac.NSAppearanceNameDarkAqua,
+			WebviewIsTransparent: true,
+			WindowIsTranslucent:  true,
+			About: &mac.AboutInfo{
+				Title:   "Manelo",
+				Message: "",
+				Icon:    icon,
+			},
+		},
+		Linux: &linux.Options{
+			Icon:                icon,
+			WindowIsTranslucent: false,
+			WebviewGpuPolicy:    linux.WebviewGpuPolicyAlways,
+			ProgramName:         "manelo",
+		},
 	})
 
 	if err != nil {
-		println("Error:", err.Error())
+		log.Fatal(err)
 	}
 }

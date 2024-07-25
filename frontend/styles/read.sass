@@ -1,0 +1,77 @@
+
+:root
+  --reader-width : 80vw
+
+#reading_space
+  min-height: 100vh
+  height: fit-content
+  position: relative
+  background : #0e0e0e
+  overflow: hidden
+  .reading_manga__container 
+    // width: var(--reader-width)
+    height : 100%
+    transition: width 0.3s ease-in-out
+    margin: 0 auto
+
+
+  .loader-container
+    height: 100vh
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    .loader
+      transform: scale(2) translateY(-50%)
+    p
+      color : cyan
+  .chapter_title
+    width: 60%
+    text-align: center
+    margin: 0px auto
+    padding : 20px 0
+    h1
+      font-size: 30px
+  .chapters_list
+    position: fixed
+    bottom: 0
+    left: 50%
+    width: 70%
+    display: flex
+    justify-content: center
+    text-align: center
+    margin: 0px auto
+    padding : 20px 0
+    margin: 0 auto
+    transform: translateX(-50%)
+    select
+      padding: 4px
+      // background: grey
+      // color : white
+      z-index: 600
+      cursor: pointer
+  .nav_buttons
+    display: flex
+    justify-content: center
+    gap: 70px
+    button
+      width: 150px
+      height: 40px
+      margin-bottom: 10px
+      cursor: pointer
+      font-size: 22px
+      font-weight: 500
+      border-radius: 5px
+
+
+.reading_controls
+  position: fixed
+  bottom: 0
+  left: 0
+  // width: 100%
+  padding: 10px
+  z-index: 400
+  padding-bottom: 13px
+  a
+    padding: 10px
+

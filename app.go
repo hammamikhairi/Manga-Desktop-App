@@ -3,46 +3,55 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 
-	wsr "github.com/wailsapp/wails/v2/pkg/runtime"
-
-	"net/http"
-	"os"
+	"manelo/backend"
+	"manelo/backend/api"
+	"manelo/backend/config"
+	"manelo/backend/models"
 )
-
-func handleRequest(w http.ResponseWriter, r *http.Request) {
-	buf, err := os.ReadFile("/home/khairi/Pictures/test.jpg")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	w.Header().Set("Content-Type", "image/png")
-	w.Write(buf)
-}
 
 // App struct
 type App struct {
 	ctx context.Context
+
+	*config.ConfigManager
+	*api.MangaController
 }
+
+const SERVICE_URL = "I CAN'T TELL YOU :)"
 
 // NewApp creates a new App application
 func NewApp() *App {
-	return &App{}
+
+	configManager, controller := backend.BackInit(SERVICE_URL)
+
+	return &App{
+		ConfigManager:   configManager,
+		MangaController: controller,
+	}
 }
 
-// startup is called when the app starts. The context is saved
-// so we can call the runtime methods
+// startup is called at application startup
 func (a *App) startup(ctx context.Context) {
+	// Perform your setup here
 	a.ctx = ctx
-	handler := http.HandlerFunc(handleRequest)
+}
 
-	http.Handle("/image", handler)
+// domReady is called after front-end resources have been loaded
+func (a App) domReady(ctx context.Context) {
+	// Add your action here
+}
 
-	fmt.Println("Server started at port 8080")
-	go http.ListenAndServe(":8080", nil)
-	// fmt.Println(os.UserConfigDir())
+// beforeClose is called when the application is about to quit,
+// either by clicking the window close button or calling runtime.Quit.
+// Returning true will cause the application to continue, false will continue shutdown as normal.
+func (a *App) beforeClose(ctx context.Context) (prevent bool) {
+	return false
+}
+
+// shutdown is called at application termination
+func (a *App) shutdown(ctx context.Context) {
+	// Perform your teardown here
 }
 
 // Greet returns a greeting for the given name
@@ -50,25 +59,27 @@ func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
 }
 
-func (a *App) Prompt() string {
-	fmt.Println("here!")
-	selection, err := wsr.OpenDirectoryDialog(a.ctx, wsr.OpenDialogOptions{
-		Title:            "It's your turn!",
-		DefaultDirectory: "/home/khairi/",
-	})
-
-	if err != nil {
-		panic("nik")
-	}
-
-	fmt.Println(selection)
-
-	return selection
+// get last manga
+func (a *App) GetLastManga() models.LastMangaResponse {
+	return a.MangaController.GetLastManga()
 }
 
-func (a *App) Dl() string {
+// get local list
+func (a *App) GetLocalList() models.ProgressResponse {
+	return a.MangaController.GetMangaList()
+}
 
-	// :)
+// search manga
+func (a *App) SearchManga(query string) models.SearchResponse {
+	return a.MangaController.SearchManga(query)
+}
 
-	return ""
+// get mlanga data
+func (a *App) GetManga(query string) (models.MetaData, error) {
+	return a.MangaController.GetManga(query)
+}
+
+// get chapter
+func (a *App) GetChapter(query string) models.Assets {
+	return a.MangaController.GetChapter(query)
 }
